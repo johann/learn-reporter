@@ -56,6 +56,7 @@ module LearnTest
 
       require_relative './reporter'
       LearnTest::Reporter.report(strategy, options)
+      
       # if !help_option_present? && strategy.push_results? && !local_test_run?
       #
       #

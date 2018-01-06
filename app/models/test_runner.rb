@@ -38,6 +38,19 @@ class TestRunner
     shell.run("rm -rf #{lab}", chdir: "./labs")
   end
 
+
+  def self.test_lab(lab)
+    runner = TestRunner.new(lab)
+    runner.run
+    repo = LearnTest::RepoParser.fetch_repo(runner.lab)
+    LearnTest::Runner.new(repo, {}).run
+    runner.clean
+  end
+
+  def clean
+    self.shell.run("rm -rf labs/#{self.lab}")
+  end
+
   def self.evaluate(lab)
     cmd = TTY::Command.new
     cmd.run!("rm -rf #{lab}")

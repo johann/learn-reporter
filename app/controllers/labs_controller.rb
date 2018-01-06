@@ -6,7 +6,7 @@ class LabsController < ApplicationController
   end
 
   def show
-    @lab  = Lab.find_by(title: params[:title])
+    @lab  = Lab.find_by(title: params[:id])
     render json: @lab
   end
 
@@ -25,12 +25,16 @@ class LabsController < ApplicationController
     # end
   end
 
-  def new
-  end
-
   def create
   end
 
+  def update
+  end
+
   def run
+    @lab  = Lab.find_by(title: params[:title])
+    TestRunner.test_lab(@lab.title)
+    log = Log.last
+    render json: log.lab
   end
 end
